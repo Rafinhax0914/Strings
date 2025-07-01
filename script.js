@@ -22,3 +22,16 @@ function processaTexto(texto) {
     console.log(ordenadas);
     return ordenadas.slice(0, 10);
 }
+
+function contaFrequencias(palavras) {
+    let frequencias = {};
+    for (let i of palavras) {
+        frequencias[i] = 0;
+        for (let j of palavras) {
+            if (i == j) {
+                frequencias[i]++;
+            }
+        }
+    }
+    return frequencias;
+}
