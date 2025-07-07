@@ -1,55 +1,37 @@
-import { PALAVRAS_RUINS } from "./palavrasRuins.js";
+import { PALAVRAS_RUINS } from './palavrasRuins.js';
 
-const botaoMostraPalavras = document.querySelector('#botao-palavrachave');
+const botao = document.querySelector('#botao-palavrachave');
+const resultado = document.querySelector('#resultado-palavrachave');
 
-botaoMostraPalavras.addEventListener('click', mostraPalavrasChave);
+botao.addEventListener('click', () => {
+  const texto = document.querySelector('#entrada-de-texto').value;
 
-function mostraPalavrasChave() {
-    const texto = document.querySelector('#entrada-de-texto').value;
-    const campoResultado = document.querySelector('#resultado-palavrachave');
-    const palavrasChave = processaTexto(texto);
+  const todasPalavras = texto
+    .toLowerCase()
+    .split(/[^a-zA-ZÀ-ÿ]+/)
+    .filter(p => p.length > 2 && !PALAVRAS_RUINS.has(p));
 
-    campoResultado.textContent = palavrasChave.join(", ");
-}
+  const frequencias = {};
+  todasPalavras.forEach(p => {
+    frequencias[p] = (frequencias[p] || 0) + 1;
+  });
 
-function processaTexto(texto) {
-    let palavras = texto.split(/\P{L}+/u);
+  const unicas = [...new Set(todasPalavras)];
 
-    for (let i in palavras) {
-        palavras[i] = palavras[i].toLowerCase();
-    }
+  if (unicas.length === 0) {
+    resultado.textContent = "Nenhuma palavra válida encontrada.";
+    return;
+  }
 
-    palavras = tiraPalavrasRuins(palavras);
+  resultado.innerHTML = "Clique em uma palavra para ver quantas vezes ela apareceu:<br><br>";
 
-    const frequencias = contaFrequencias(palavras);
-    let ordenadas = Object.keys(frequencias).sort(ordenaPalavra);
-
-    function ordenaPalavra(p1, p2) {
-        return frequencias[p2] - frequencias[p1];
-    }
-
-    return ordenadas.slice(0, 10);
-}
-
-function contaFrequencias(palavras) {
-    let frequencias = {};
-    for (let i of palavras) {
-        frequencias[i] = 0;
-        for (let j of palavras) {
-            if (i == j) {
-                frequencias[i]++;
-            }
-        }
-    }
-    return frequencias;
-}
-
-function tiraPalavrasRuins(palavras) {
-    const palavrasBoas = [];
-    for (let palavra of palavras) {
-        if (!PALAVRAS_RUINS.has(palavra) && palavra.length > 2) {
-            palavrasBoas.push(palavra);
-        }
-    }
-    return palavrasBoas;
-}
+  unicas.forEach(palavra => {
+    const span = document.createElement('span');
+    span.classList.add('palavra');
+    span.textContent = palavra;
+    span.addEventListener('click', () => {
+      alert(`A palavra "${palavra}" apareceu ${frequencias[palavra]} vez(es).`);
+    });
+    resultado.appendChild(span);
+  });
+});
