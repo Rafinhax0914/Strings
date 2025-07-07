@@ -19,11 +19,11 @@ botao.addEventListener('click', () => {
   const unicas = [...new Set(todasPalavras)];
 
   if (unicas.length === 0) {
-    resultado.textContent = "Nenhuma palavra válida encontrada.";
+    resultado.innerHTML = "<em>Nenhuma palavra válida encontrada.</em>";
     return;
   }
 
-  resultado.innerHTML = "Clique em uma palavra para ver quantas vezes ela apareceu:<br><br>";
+  resultado.innerHTML = "";
 
   unicas.forEach(palavra => {
     const span = document.createElement('span');
