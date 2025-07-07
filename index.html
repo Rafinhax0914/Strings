@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analisador de Palavras</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filtro de Palavras</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Analisador de Palavras-Chave</h1>
-    <textarea id="entrada-de-texto" placeholder="Digite seu texto aqui..."></textarea>
-    <button id="botao-palavrachave">Analisar</button>
-    <div id="resultado-palavrachave">As palavras boas aparecerão aqui.</div>
+  <div class="main-container">
+    <header>
+      <h1>🕵️‍♂️ Filtro de Palavras-Chave</h1>
+      <p>Digite seu texto, clique em "Analisar" e veja só as palavras boas!</p>
+    </header>
+
+    <section class="entrada">
+      <textarea id="entrada-de-texto" placeholder="Digite ou cole seu texto aqui..."></textarea>
+      <button id="botao-palavrachave">🔍 Analisar</button>
+    </section>
+
+    <section class="resultado">
+      <h2>✅ Palavras Boas:</h2>
+      <div id="resultado-palavrachave">O resultado aparecerá aqui.</div>
+    </section>
   </div>
+
   <script type="module" src="script.js"></script>
 </body>
 </html>
